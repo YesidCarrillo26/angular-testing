@@ -1,6 +1,8 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
 
 import { CartService } from './cart.service';
+// import { Product } from '@shared/models/product.model';
+// import { createMockProduct } from '../models/product.mock';
 
 describe('CartService', () => {
   let spectator: SpectatorService<CartService>;
@@ -14,6 +16,8 @@ describe('CartService', () => {
 
   // add product to cart
   it('should add product to cart', () => {
+    // const product: Product = createMockProduct()
+
     const product = {
       id: 1,
       name: 'Product 1',

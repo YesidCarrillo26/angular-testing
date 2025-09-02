@@ -12,7 +12,7 @@ module.exports = tseslint.config(
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
-      prettierRules,
+      // prettierRules,
     ],
     processor: angular.processInlineTemplates,
     rules: {
