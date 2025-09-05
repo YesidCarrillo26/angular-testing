@@ -7,6 +7,7 @@
       <div class="w-full rounded border border-gray-200">
         <div class="relative h-96">
           <img
+            data-testid="cover"
             alt="ecommerce"
             [fill]="true"
             class="w-full object-cover object-center"
@@ -14,7 +15,7 @@
         </div>
       </div>
       <div class="flex items-center justify-center mt-1">
-        <div class="grid grid-cols-3 gap-1">
+        <div class="grid grid-cols-3 gap-1" data-testid="gallery">
           @for (img of data.images; track img) {
             <img
               width="80"

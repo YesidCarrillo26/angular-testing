@@ -1,4 +1,4 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
+import { Spectator, byTestId, createComponentFactory } from '@ngneat/spectator/jest';
 import { ProductComponent } from './product.component';
 import { Product } from '@shared/models/product.model';
 import { ActivatedRoute } from '@angular/router'; // Importa ActivatedRoute
@@ -33,10 +33,9 @@ describe('ProductComponent', () => {
 
   beforeEach(() => {
     spectator = createComponent({
-      props: {
-        product: mockProduct,
-      }
+      detectChanges: false,
     });
+    spectator.setInput('product', mockProduct);
   });
 
   it('should create', () => {
@@ -45,30 +44,30 @@ describe('ProductComponent', () => {
   });
 
   // display title
-  
-
-  // it('should have the correct product input', () => {
-  //   expect(spectator.component.product()).toEqual(mockProduct);
-  // });
-
-  // it('should emit addToCart with product when addToCartHandler is called', () => {
-  //   jest.spyOn(spectator.component.addToCart, 'emit');
-  //   spectator.component.addToCartHandler();
-  //   expect(spectator.component.addToCart.emit).toHaveBeenCalledWith(mockProduct);
-  // });
-
-  // it('should render product name in template', () => {
-  //   spectator.setInput('product', mockProduct);
+  // it('should display product title', () => {
   //   spectator.detectChanges();
-  //   expect(spectator.query('app-product')).toBeTruthy();
-  //   // If you have an element showing the name, e.g. <span>{{ product().name }}</span>
-  //   // expect(spectator.query('span')).toHaveText('Test Product');
+  //   expect(spectator.query('h3')).toHaveText(mockProduct.title);
   // });
+  
+  //title test id
+  it('should display product title using test id', () => {
+    spectator.detectChanges();
+    const titleElement = spectator.query(byTestId('product-title'));
+    expect(titleElement).toHaveText(mockProduct.title);
+  });
 
-  // it('should call addToCartHandler when add to cart button is clicked', () => {
-  //   const spy = jest.spyOn(spectator.component, 'addToCartHandler');
-  //   // Assuming you have a button with a test id or selector
-  //   spectator.click('button[data-testid="add-to-cart"]');
-  //   expect(spy).toHaveBeenCalled();
-  // });
+  // product price 
+  it('should emit a product when the button is clicked', () => {
+    spectator.detectChanges();
+    // Arrange
+    const emitSpy = jest.spyOn(spectator.component.addToCart, 'emit');
+    // Act
+    spectator.detectChanges();
+    spectator.click(byTestId('add-to-cart-button'));
+    // Assert
+    expect(emitSpy).toHaveBeenCalledWith(mockProduct);
+  });
+
+  
+  
 });
